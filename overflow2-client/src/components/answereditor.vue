@@ -52,7 +52,7 @@ export default {
       let self = this;
       let options = {
         method: 'POST',
-        url: `http://${process.env.VUE_APP_SERVER_URL}/answers/${self.q._id}`,
+        url: `http://api.hacktivoverflow.theodarmawan.com/answers/${self.q._id}`,
         data: {
           description: self.editor.text
         },

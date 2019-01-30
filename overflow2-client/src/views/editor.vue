@@ -63,7 +63,7 @@ export default {
       let self = this;
       let options = {
         method: 'POST',
-        url: `http://${process.env.VUE_APP_SERVER_URL}/questions`,
+        url: `http://api.hacktivoverflow.theodarmawan.com/questions`,
         data: {
           title: self.editor.title,
           description: self.editor.text,

@@ -81,7 +81,7 @@
         },
         login() {
           let self = this;
-            var url =`http://${process.env.VUE_APP_SERVER_URL}/users/signin`
+            var url =`http://api.hacktivoverflow.theodarmawan.com/users/signin`
           let options = {
             method:"POST",
             url,
@@ -109,7 +109,7 @@
         submitRegistration() {
           let options = {
             method:"POST",
-            url:`http://${process.env.VUE_APP_SERVER_URL}/users/signup`,
+            url:`http://api.hacktivoverflow.theodarmawan.com/users/signup`,
             data: {
               name: this.forms.name,
               email: this.forms.email,
