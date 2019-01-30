@@ -107,6 +107,7 @@
         },
       
         submitRegistration() {
+          let self = this;
           let options = {
             method:"POST",
             url:`http://${process.env.VUE_APP_SERVER_URL}/users/signup`,
@@ -121,7 +122,7 @@
             self.msg.register= 'Successfully registered user. Signing in...';
             setTimeout(() => {
               //emit
-              self.$router.push('/home/store');
+              self.$router.push('/');
               self.msg.register= '';
             }, 1500)
           })

@@ -66,7 +66,7 @@ export default new Vuex.Store({
       return new Promise((resolve,reject) => {
         axios({
           method:'GET',
-          url:'http://localhost:3000/questions',
+          url:'http://api.hacktivoverflow.theodarmawan.com:3000/questions',
           headers: {
             authorization: localStorage.getItem('token')
           }
@@ -120,7 +120,7 @@ export default new Vuex.Store({
       return new Promise((resolve,reject) => {
         axios({
           method:'PUT',
-          url:'http://localhost:3000/users/updateWatchedTags',
+          url:'http://api.hacktivoverflow.theodarmawan.com:3000/users/updateWatchedTags',
           headers: {
             authorization: context.state.token 
           },
@@ -175,7 +175,7 @@ export default new Vuex.Store({
       }
       axios({
         method:'PUT',
-        url:`http://localhost:3000/questions/${data._id}`,
+        url:`http://api.hacktivoverflow.theodarmawan.com:3000/questions/${data._id}`,
         headers: {
           authorization: localStorage.getItem('token')
         },
@@ -193,7 +193,7 @@ export default new Vuex.Store({
       return new Promise((resolve,reject) => {
         axios({
           method:'DELETE',
-          url:`http://localhost:3000/questions/${id}`,
+          url:`http://api.hacktivoverflow.theodarmawan.com:3000/questions/${id}`,
           headers: {
             authorization: localStorage.getItem('token')
           },
