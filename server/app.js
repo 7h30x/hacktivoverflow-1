@@ -7,6 +7,8 @@ const bodyParser = require ('body-parser');
 const questionRouter = require ('./routes/questions');
 const answerRouter = require ('./routes/answers');
 const userRouter = require ('./routes/users');
+const redis = require('redis');
+redis.createClient({host: '127.0.0.1', port: 6379});
 
 // DB CONNECT 
 const mongoose = require ('mongoose');

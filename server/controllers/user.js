@@ -1,7 +1,15 @@
 const Model = require('../models/user');
 const jwt = require('jsonwebtoken');
-
-
+const transporter = require('../helpers/transporter');
+const kue = require('kue');
+const queue = kue.createQueue({
+  prefix: 'q',
+  redis: {
+    host: '127.0.0.1',
+    port: 6379 // default
+  }
+});
+queue.create('email').attempts(2).save();
 module.exports = class User {
   static signUp (req,res) {
     let newUser ={
@@ -12,13 +20,24 @@ module.exports = class User {
     } 
     Model.findOne({email: newUser.email})
     .then(user => {
-      if(user) {
-        throw 'email is already registered.'
-      } else {
+
         return Model.create(newUser)
-      }
     })
     .then(response => {
+      function email (done) {
+        let mailOptions = {
+          from: process.env.GMAIL_USER_AUTH, // sender address
+          to: "theo.darmawan@gmail.com", // list of receivers
+          subject: "Welcome to Hacktiv Overflow, " + req.body.firstName, // Subject line
+          html: "<h3>thank you for registering! We will be adding more features shortly. Enjoy the App!</h3>" // html body
+        };
+        transporter.sendMail(mailOptions)
+        .then(res => done())
+        .catch(err => console.err)
+      }
+      queue.process('email' , 5 ,  function (job, done) {
+        email(done)
+      })
       let user = response;
       delete user.password;
       let token = jwt.sign(response.toObject(), process.env.JWT_SECRET);
@@ -29,7 +48,7 @@ module.exports = class User {
       })
     })
     .catch(error => {
-      console.log(error)
+      // console.log(error)
       res.status(400).json({
         message: error
       })
